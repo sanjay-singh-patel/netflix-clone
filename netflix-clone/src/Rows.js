@@ -6,16 +6,22 @@ function Row({title,fetchUrl}) {
     useEffect(() => {
         async function fetchData(){
             const request = await axios.get(fetchUrl);
-            console.log(request);
+            setMovies(request.data.results);
             return request;
         }
         fetchData();
-    }, []);
-    
-    return(
-        <div>
-            <h2>{title}</h2>
+    }, [fetchUrl]);
 
+    // console.table(movies);
+    return(
+        <div className='row'>
+            <h2>{title}</h2>
+            <div className='row_poster'>
+                {movies.map(movie =>(
+                    <img src={movie.poster_path} alt={movie.name}>
+                    </img>
+                ))}
+            </div>
         </div>
     )
     
